@@ -35,56 +35,6 @@ import {
   UserProfilePage,
   UserAccountPage,
 
-  // Dashboard: Empresa
-  EmpresaListPage,
-  EmpresaEditPage,
-  EmpresaCreatePage,
-  // AdministrarEmpresa,
-
-  // Dashboard: Empleado
-  EmpleadoListPage,
-  EmpleadoEditPage,
-  EmpleadoCreatePage,
-  AdministrarEmpleados,
-
-  EmpleadoSoporte,
-  LogErrores,
-  EmpleadoSoporteEditar,
-  // Dashboard: Area
-  AreaListPage,
-  AreaEditPage,
-  AreaCreatePage,
-  // AdministrarArea,
-
-  // Dashboard: Departamento
-  DepartamentoListPage,
-  DepartamentoEditPage,
-  DepartamentoCreatePage,
-
-  // Dashboard: Puesto
-  PuestoListPage,
-  PuestoEditPage,
-  PuestoCreatePage,
-  // AdministrarPuesto,
-
-  // Vacaciones
-  InicioVacaciones,
-  InicioPeticiones,
-  Periodos,
-  Especiales,
-  BalanceEmpleadoVacaciones, 
-  // Mis Vacaciones
-  // InicioMisVacaciones,
-
-  DiasInhabilesListPage,
-  DiasInhabilesEditPage,
-  DiasInhabilesCreatePage,
-
-  // Reportes
-  ReportesVacaciones,
-  ReportesPersonales,
-  ReportesIndex,
-  ReportesSolicitudes,
   // Dashboard: Banco
   // BancoListPage,
   // BancoEditPage,
@@ -187,7 +137,7 @@ import {
   DemoUploadPage,
   DemoMarkdownPage,
   PedidosIndex,
-
+  ReportesIndex,
   
 } from './elements';
 
@@ -268,104 +218,6 @@ export default function Router() {
             { path: 'account', element: <UserAccountPage /> },
           ],
         },
-        {
-          path: 'empresa',
-          children: [
-            { element: <Navigate to="/dashboard/empresa/list" replace />, index: true },
-            { path: 'list', element: <EmpresaListPage /> },
-            { path: 'new', element: <EmpresaCreatePage /> },
-            { path: ':name/edit', element: <EmpresaEditPage /> },         
-            // { path: 'administrar', element: <AdministrarEmpresa /> },
-
-          ],
-        },
-        {
-          path: 'empleado',
-          children: [
-            { element: <Navigate to="/dashboard/empleado/list" replace />, index: true },
-            { path: 'list', element: <EmpleadoListPage /> },
-            { path: 'new', element: <EmpleadoCreatePage /> },
-            { path: ':name/edit', element: <EmpleadoEditPage /> },
-          ],
-        },
-        {
-          path: 'empleadoSoporte',
-          children: [
-            { element: <Navigate to="/dashboard/empleadoSoporte/list" replace />, index: true },
-            { path: 'list', element: <EmpleadoSoporte /> },
-            { path: 'logErrores', element: <LogErrores /> },
-            { path: ':name/edit', element: <EmpleadoSoporteEditar /> },
-          ],
-        },
-        {
-          path: 'empleados',
-          children: [
-            { element: <Navigate to="/dashboard/empleados/list" replace />, index: true },
-            { path: 'list', element: <EmpleadoListPage /> },
-            { path: 'new', element: <EmpleadoCreatePage /> },
-            { path: ':name/edit', element: <EmpleadoEditPage /> },
-            { path: 'administrar', element: <AdministrarEmpleados /> },
-          ],
-        },
-        {
-          path: 'area',
-          children: [
-            { element: <Navigate to="/dashboard/area/list" replace />, index: true },
-            { path: 'list', element: <AreaListPage /> },
-            { path: 'new', element: <AreaCreatePage /> },
-            { path: ':name/edit', element: <AreaEditPage /> }, 
-            // { path: 'administrar', element: <AdministrarArea /> },
-
-          ],
-        },
-        {
-          path: 'departamento',
-          children: [
-            { element: <Navigate to="/dashboard/departamento/list" replace />, index: true },
-            { path: 'list', element: <DepartamentoListPage /> },
-            { path: 'new', element: <DepartamentoCreatePage /> },
-            { path: ':name/edit', element: <DepartamentoEditPage /> },
-            // { path: 'administrar', element: <AdministrarPuesto/> },
-          ],
-        },
-        {
-          path: 'puesto',
-          children: [
-            { element: <Navigate to="/dashboard/puesto/list" replace />, index: true },
-            { path: 'list', element: <PuestoListPage /> },
-            { path: 'new', element: <PuestoCreatePage /> },
-            { path: ':name/edit', element: <PuestoEditPage /> },
-            // { path: 'administrar', element: <AdministrarPuesto/> },
-          ],
-        },
-        {
-            path: 'Vacaciones',
-            children: [
-                { element: <Navigate to="/dashboard/vacaciones/inicio" replace />, index: true },
-                { path: 'inicio', element: <InicioVacaciones /> },
-                { path: 'solicitudes', element: <InicioPeticiones /> },
-                { path: 'periodos', element: <Periodos /> },
-                { path: 'especiales', element: <Especiales/> },
-                { path: ':name/edit', element: <BalanceEmpleadoVacaciones /> },
-              ],
-        },
-        {
-          path: 'diasInhabiles',
-          children: [
-            { element: <Navigate to="/dashboard/diasInhabiles/list" replace />, index: true },
-            { path: 'list', element: <DiasInhabilesListPage /> },
-            { path: 'new', element: <DiasInhabilesCreatePage /> },
-            { path: ':name/edit', element: <DiasInhabilesEditPage /> },
-            // { path: 'administrar', element: <AdministrarPuesto/> },
-          ],
-        },
-        {
-          path: 'misvacaciones',
-          children: [
-              { element: <Navigate to="/dashboard/misvacaciones/inicio" replace />, index: true },
-              { path: 'inicio', element: <InicioVacaciones /> },
-          ],
-      },
       {
         path: 'reportes',
         children: [

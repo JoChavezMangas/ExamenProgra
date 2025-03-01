@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { CloseIcon } from '../../../../theme/overrides/CustomIcons';
 import { HOST_API_LOCAL, END_POINT_HISTORIAL_BALANCE, END_POINT_TABLEROS_MIS_SOLICITUDES } from '../../../../config-global';
 // import GenericDataGridCustom from '../../../_examples/mui/data-grid/GenericDataGridCostom';
-import DialogEditarSolicitud from '../../../../pages/Vacaciones/EdicionSolicitud';
-import { RenderPeriodo, RenderStatus, RendertipoPeticion } from '../../../../pages/Vacaciones/MetodosAUX';
+// import DialogEditarSolicitud from '../../../../pages/Vacaciones/EdicionSolicitud';
+// import { RenderPeriodo, RenderStatus, RendertipoPeticion } from '../../../../pages/Vacaciones/MetodosAUX';
 import Iconify from '../../../../components/iconify';
 
 

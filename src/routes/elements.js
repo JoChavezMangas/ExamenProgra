@@ -74,60 +74,16 @@ export const UserAccountPage = Loadable(lazy(() => import('../pages/dashboard/Us
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));
 
-// DASHBOARD: Empresa
-export const EmpresaListPage = Loadable(lazy(() => import('../pages/Empresa/BandejaEmpresa')));
-export const EmpresaCreatePage = Loadable(lazy(() => import('../pages/Empresa/CreateEmpresa')));
-export const EmpresaEditPage = Loadable(lazy(() => import('../pages/Empresa/EmpresaEditPage')));
-// export const AdministrarEmpresa = Loadable(lazy(() => import('../pages/Empresa/AdministrarEmpresa')));
 
-// DASHBOARD: Empleado
-export const EmpleadoListPage = Loadable(lazy(() => import('../pages/Empleado/BandejaEmpleado')));
-export const EmpleadoCreatePage = Loadable(lazy(() => import('../pages/Empleado/CreateEmpleado')));
-export const EmpleadoEditPage = Loadable(lazy(() => import('../pages/Empleado/EmpleadoEditPage')));
-export const AdministrarEmpleados = Loadable(lazy(() => import('../pages/Empleado/AdministrarEmpleado')));
 
-// DASHBOARD: Empleado Soporte 
-export const EmpleadoSoporte= Loadable(lazy(() => import('../pages/Empleado/EmpleadoSoporte')));
-export const LogErrores = Loadable(lazy(() => import('../pages/Soporte/BandejaErorrores')));
-export const EmpleadoSoporteEditar= Loadable(lazy(() => import('../pages/Empleado/EmpleadoSoporteEditar')));
 
-// DASHBOARD: Area
-export const AreaListPage = Loadable(lazy(() => import('../pages/Area/BandejaArea')));
-export const AreaCreatePage = Loadable(lazy(() => import('../pages/Area/CreateArea')));
-export const AreaEditPage = Loadable(lazy(() => import('../pages/Area/AreaEditPage')));
-// export const AdministrarArea= Loadable(lazy(() => import('../pages/Area/AdministrarArea')));
 
-// DASHBOARD: Departamento
-export const DepartamentoListPage = Loadable(lazy(() => import('../pages/Departamento/BandejaDepartamento')));
-export const DepartamentoCreatePage = Loadable(lazy(() => import('../pages/Departamento/DepartamentoCreatePage')));
-export const DepartamentoEditPage = Loadable(lazy(() => import('../pages/Departamento/DepartamentoEditPage')));
 
-// DASHBOARD: Puesto
-export const PuestoListPage = Loadable(lazy(() => import('../pages/Puesto/BandejaPuesto')));
-export const PuestoCreatePage = Loadable(lazy(() => import('../pages/Puesto/CreatePuesto')));
-export const PuestoEditPage = Loadable(lazy(() => import('../pages/Puesto/PuestoEditPage')));
-// export const AdministrarPuesto = Loadable(lazy(() => import('../pages/Puesto/AdministrarPuesto')));
-
-// DASHBOARD: Vacaciones
-export const InicioVacaciones = Loadable(lazy(() => import('../pages/Vacaciones/InicioVacaciones')));    
-export const InicioPeticiones = Loadable(lazy(() => import('../pages/Vacaciones/InicioPeticiones')));    
-export const Periodos = Loadable(lazy(() => import('../pages/Vacaciones/Periodos'))); 
-export const Especiales = Loadable(lazy(() => import('../pages/Vacaciones/Especiales')));   
-export const BalanceEmpleadoVacaciones = Loadable(lazy(() => import('../pages/Vacaciones/BalanceEmpleadoVacaciones')));
-
-// DASHBOARD: Días Inhabiles
-export const DiasInhabilesListPage = Loadable(lazy(() => import('../pages/DiasInhabiles/BandejaDiasInhabiles')));
-export const DiasInhabilesCreatePage = Loadable(lazy(() => import('../pages/DiasInhabiles/CreateDiasInhabiles')));
-export const DiasInhabilesEditPage = Loadable(lazy(() => import('../pages/DiasInhabiles/DiasInhabilesEditPage')));
-
-// DASHBOARD: Mis Vacaciones
-export const InicioMisVacaciones = Loadable(lazy(() => import('../pages/Vacaciones/InicioMisVacaciones')));    
+  
 
 // DASHBOARD: Reportes
 export const ReportesIndex = Loadable(lazy(() => import('../pages/Reportes/ReportesIndex')));
-export const ReportesVacaciones = Loadable(lazy(() => import('../pages/Vacaciones/ReportesVacaciones')));
-export const ReportesPersonales  = Loadable(lazy(() => import('../pages/Vacaciones/ReportesPersonales')));
-export const ReportesSolicitudes = Loadable(lazy(() => import('../pages/Vacaciones/ReportesSolicitudes')));
+
 
 // DASHBOARD: Reportes
 export const PedidosIndex = Loadable(lazy(() => import('../pages/Pedidos/PedidosIndex')));

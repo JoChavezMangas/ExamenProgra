@@ -5,7 +5,6 @@ import { useState } from 'react';
 import {
   Box,
   Stack,
-  List,
   Badge,
   Tooltip,
   Divider,
@@ -14,17 +13,12 @@ import {
   ListItemText,
   ListItemButton,
 } from '@mui/material';
-import { PATH_DASHBOARD } from '../../../routes/paths';
 
 // utils
-import { fToNow } from '../../../utils/formatTime';
 // components
 import Iconify from '../../../components/iconify';
-import Scrollbar from '../../../components/scrollbar';
 import MenuPopover from '../../../components/menu-popover';
 import { IconButtonAnimate } from '../../../components/animate';
-import TablaProximos from '../../../pages/Vacaciones/TablaProximos';
-import TablaPeticiones from '../../../pages/Vacaciones/Peticiones';
 
 // ----------------------------------------------------------------------
 
