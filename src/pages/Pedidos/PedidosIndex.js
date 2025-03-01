@@ -41,7 +41,6 @@ export default function CrearPedido() {
 
     // ??
     const {
-        reset,
         handleSubmit,
         formState: { isSubmitting },
     } = methods;
@@ -67,9 +66,6 @@ export default function CrearPedido() {
     const [empresaValor, setempresaValor] = useState(0)
     const [areaValor, setAreaValor] = useState(0)
 
-    const changeFunc = (param) => {
-        setfiltroValor(param);
-    }
 
     return (
         <>

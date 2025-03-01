@@ -1,45 +1,28 @@
 import { Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // @mui
 import {
     Card,
-    Button,
-    Container,
-    IconButton,
     TableContainer,
     Typography,
-    MenuItem,
-    Link,
     Tabs,
     Tab,
     Box,
     Grid,
-    CardContent,
-    Stack
-} from '@mui/material';
+    CardContent} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSnackbar } from 'notistack';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 import { _employeeList } from '../../_mock/arrays';
 // components
-import Iconify from '../../components/iconify';
-import ConfirmDialog from '../../components/confirm-dialog';
 import CustomBreadcrumbs from '../../components/custom-breadcrumbs';
 // sections
 import Label from '../../components/label';
 import { CustomAvatar } from '../../components/custom-avatar';
-import MenuPopover from '../../components/menu-popover';
 import {
-    HOST_API_LOCAL,
-    END_POINT_BANDEJAEMPLEADOS,
-    END_POINT_ELIMINAR_EMPLEADO,
-    END_POINT_OBTENER_EMPLEADO,
-    END_POINT_EDITAR_EMPLEADO,
-    END_POINT_BANDEJAEMPLEADOS_EMPRESA,
     END_POINT_BORRAR_EMPLEADO,
     END_POINT_BANDEJAREPORTE_EMPLEADOVACACIONES,
     END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID,
@@ -47,9 +30,7 @@ import {
 } from '../../config-global';
 import { AxiosEliminar } from '../../_Axios/AxiosFomr';
 import GenericDataGridCustomExport from '../../sections/_examples/mui/data-grid/GenericDataGridCostomExport';
-import { RHFTextField } from '../../components/hook-form';
 import FormProvider from '../../components/hook-form/FormProvider';
-import GenericComboSelect from '../../utils/GenericComboSelect';
 import GenericCombo from '../../utils/GenericCombo';
 
 import GenericDataGridCustom from '../../sections/_examples/mui/data-grid/GenericDataGridCostom';

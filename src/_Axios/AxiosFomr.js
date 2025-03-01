@@ -465,28 +465,3 @@ export function AxiosIdSucces(IdParam, url, succesAxiosFunc) {
 
 }
 
-
-// export function AxiosGetIdComentSucces(Id, coment ,url, succesAxiosFunc) {
-
-//    const urlEndPoint = HOST_API_LOCAL + url;
-//    const AUT = `Bearer ${localStorage.getItem('accessToken')}`;
-//    axios({
-//        method: 'get',
-//        url: urlEndPoint,
-//        params: { Id: Id, comentario: coment },
-//        headers: { 'Authorization': AUT }
-//    })
-//        .then(response => {
-//            // console.log('Respuesta', response)
-//            if (response.data.status === 'OK') {
-//                succesFunc()
-//                setOpenConfirm(false);
-
-//            }
-//            else {
-//                enqueueSnackbar("Faltan datos")
-//            }
-//        })
-
-// }
-
