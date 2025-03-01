@@ -66,52 +66,10 @@ export const isValidToken = (accessToken, HoraValidar, mostrarModal) => {
   // return decoded.exp > currentTime;
 };
 
-// ----------------------------------------------------------------------
-
-// Constante para contar el tiempo para renovar el token
-export const contadorExpiraSesion = (mostrarModal) => {
-    
-    // console.log('entro en el contador de Expiracion', localStorage.getItem('RolId'));
-
-
-    setTimeout(() => {
-        if ((new Date()) - localStorage.getItem('horaAcceso') > 8000000)
-            mostrarModal('mostrar')
-        else
-            ValidarRenovacion(true, mostrarModal)
-     }, 8200000);
-    // }, 19000);
-
-   // let TiempoParaEjecucion;
-
-   // if (localStorage.getItem('expiracionToken') - localStorage.getItem('horaAcceso') > 1800000 ||
-   //     localStorage.getItem('horaAcceso') - localStorage.getItem('expiracionToken') > 1800000) {
-                                
-   //     TiempoParaEjecucion = 1800000;
-   // } else if (localStorage.getItem('expiracionToken') - localStorage.getItem('horaAcceso') >= 0) {
-   //     TiempoParaEjecucion = (localStorage.getItem('expiracionToken') - localStorage.getItem('horaAcceso'));
-   // } else {
-   //     TiempoParaEjecucion = (localStorage.getItem('horaAcceso')-localStorage.getItem('expiracionToken'));
-   // }
-
-   // const expiredTimer = setTimeout(() => {
-
-   //   // valida si ha transcurrido suficiente tiempo desde que se renovo el token
-   //    if ((new Date()) - localStorage.getItem('horaAcceso') > TiempoParaEjecucion) {
-   //       mostrarModal('mostrar')
-   //   } else {
-   //       // contadorExpiraSesion(mostrarModal)
-   //       ValidarRenovacion(true, mostrarModal)
-   //   }
-   // }, TiempoParaEjecucion);
-
-};
-
-// ----------------------------------------------------------------------
 
 
 // Coloca el acces token o destruye el token
-export const setSession = (accessToken, mostrarModal, fecha,EmpleaodId,RolId) => {
+export const setSession = (accessToken,  fecha,EmpleaodId,RolId) => {
     if (accessToken) {
 
         const horaRecarga = new Date().valueOf();
@@ -125,9 +83,9 @@ export const setSession = (accessToken, mostrarModal, fecha,EmpleaodId,RolId) =>
         // Coloca por default el token y la atorizacion 
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         // Inicia el contador para mostrar el modal de tiempo de sesion
-        contadorExpiraSesion(mostrarModal);
+        // contadorExpiraSesion(mostrarModal);
         // Inicia los eventos para detectar actividad en la pantalla
-        colocarEventos();
+        // colocarEventos();
     } else {
         // Destrulle el los datos de sesion 
         localStorage.removeItem('accessToken');
@@ -168,39 +126,6 @@ export const ValidarRenovacion = (renovar, ModalTiempoAgotado) => {
 }
 
 
-// Constante para colocar eventos de actividad en la panltalla, escucha click, teclado y touch
-const colocarEventos = () => {
-    document.removeEventListener("click", GuardarFecha);
-    document.removeEventListener("keypress", GuardarFecha);
-    document.removeEventListener("touchenter", GuardarFecha);
-    document.addEventListener("click", GuardarFecha);
-    document.addEventListener("keypress", GuardarFecha);
-    document.addEventListener("touchenter", GuardarFecha);
-}
 
-// Metodo para actualizar la ultima interaccion en la pantalla
-function GuardarFecha() {
-    localStorage.setItem('horaAcceso', new Date().valueOf());
-}
 
-export const setTockenExterno = async () => {
-    const username = "Conecta";
-    const password = "C0N3ct42";
-    const URL = HOST_API_SISTEMAS + END_POINT_SISTEMAS_RENOVAR_TOKEN;
-    const response = await axios.post(URL, {
-        username,
-        password
-    });
-    localStorage.setItem('tokenExterno', response.data.token);
-}
 
-export const ValidarTockenExterno = async ()=>{
-
-    const renovar = localStorage.getItem('RolId') === "RecursosHumanos" || localStorage.getItem('RolId') === "RHEmpresa";
-    if (renovar) {
-        // console.log("SE coloca toekn")
-        setTockenExterno()
-        setTimeout(() => {ValidarTockenExterno()}, 900000);
-    }
-    
-}

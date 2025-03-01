@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IconButton } from '@mui/material';
 import Iconify from '../../components/iconify/Iconify';
-import EmpleadoDialogForm from '../../sections/@dashboard/empleado/EmpleadoDialogForm';
+// import EmpleadoDialogForm from '../../sections/@dashboard/empleado/EmpleadoDialogForm';
 
 export default function EmpleadoDialog() {
   const [open, setOpen] = React.useState(true);
@@ -65,7 +65,7 @@ export default function EmpleadoDialog() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            <EmpleadoDialogForm/>
+            { /* <EmpleadoDialogForm/> */ }
           </DialogContentText>
         </DialogContent>
         <DialogActions>

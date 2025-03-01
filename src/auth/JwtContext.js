@@ -16,7 +16,7 @@ import { Navigate, useNavigate } from 'react-router';
 import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
-import { isValidToken, setSession, ValidarRenovacion, ValidarTockenExterno } from './utils';
+import { isValidToken, setSession, ValidarRenovacion } from './utils';
 import navConfig from '../layouts/dashboard/nav/config-navigation';
 import { END_POINT_LOGOUT_MULTILOGIN, END_POINT_RENOVAR_TOKEN, HOST_API_KEY } from '../config-global';
 
@@ -111,37 +111,17 @@ export function AuthProvider({ children }) {
     const initialize = useCallback(async () => {
         try {
 
-
-
-
-
             const accessToken = storageAvailable ? localStorage.getItem('accessToken') : '';
             const accessTime = storageAvailable ? localStorage.getItem('expiracionToken') : 0;
             const horaRecarga = new Date().valueOf();
-            // console.log("recarga de tocken")
-            // console.log('loq ue tiene de acces token',accessToken)
-            // console.log('el storageAvailable', storageAvailable)
-            // console.log('el accessToken', localStorage.getItem('accessToken'))
-            // verifica si hay token y si el token no ha caducado
-            const enTiempoRecarga = ((accessTime - horaRecarga) / 1800000) < 60;
 
-
-
-
-            if (accessToken && enTiempoRecarga) {
+            if (accessToken) {
 
                 // Guarda la hora en la que se ha validado la carga
                 localStorage.setItem('horaAcceso', horaRecarga);
 
-                // console.log("el token es valido", isValidToken(accessToken, horaRecarga, mostrarModal))
 
-                // Coloca los valores de sesion, toma tambien el metodo para mostrar modal de tiempo de sesion
-                // setSession(accessToken, mostrarModal, localStorage.getItem('expiracionToken'), localStorage.getItem('EmpleadoId'), localStorage.getItem('RolId'));
-                // ValidarRenovacion(true, mostrarModal)
-                // Carga los valores para el usuario, por el momento solo tien un valor de prueba
-
-
-                ValidarTockenExterno()
+                // ValidarTockenExterno()
 
                 dispatch({
                     type: 'INITIAL',
@@ -183,34 +163,6 @@ export function AuthProvider({ children }) {
         initialize();
     }, [initialize]);
 
-    const loginMulti = useCallback(async (token) => {
-
-        // localStorage.setItem('accessToken', token);
-      
-        const URLRenovar = HOST_API_KEY + END_POINT_RENOVAR_TOKEN;
-        const AUT = `Bearer ${token}`
-
-         axios({
-            method: 'get',
-             url: URLRenovar,
-            params: { email: "loQueSEa" },
-            headers: { 'Authorization': AUT }
-         }).then(result => {
-            setSession(result.data.token, mostrarModal, new Date(result.data.expiracion).valueOf(), result.data.empleadoId, result.data.rolId);
-            ValidarTockenExterno()
-            dispatch({
-                type: 'MULTI',
-                payload: {
-                    userPrueba,
-                    user: { "role": result.data.rolId },
-                },
-            });
-         }).catch(() => {
-            setSession(false, () => { })
-         })
-
-    },[])
-
     // LOGIN
     const login = useCallback(async (email, password) => {
 
@@ -227,16 +179,13 @@ export function AuthProvider({ children }) {
 
             const horaRecarga = new Date().valueOf();
             localStorage.setItem('horaAcceso', horaRecarga);
-            // console.log('este es el data', result.data)
-            // Coloca los valores de sesion
             setSession(result.data.token,
-                mostrarModal,
                 new Date(result.data.expiracion).valueOf(),
                 result.data.empleadoId,
                 result.data.rolId
             );
 
-            ValidarTockenExterno()
+            // ValidarTockenExterno()
 
             dispatch({
                 type: 'LOGIN',
@@ -250,7 +199,6 @@ export function AuthProvider({ children }) {
 
         })
         .catch(() => {
-            console.log('fallo!!')
             dispatch({
                 type: 'LOGOUT',
             });
@@ -305,91 +253,15 @@ export function AuthProvider({ children }) {
       method: 'jwt',
       login,
       register,
-      logout,
-      loginMulti
+      logout
+      
     }),
-    [state.isAuthenticated, state.isInitialized, state.user, login, logout, register,loginMulti]
+    [state.isAuthenticated, state.isInitialized, state.user, login, logout, register]
   );
 
 
-  // Muestra el modal de tiempo de sesion
-  function mostrarModal(mostrarModalparam) {
-    if (mostrarModalparam === 'mostrar') {
-      setOpen(true);
-      // Borra la sesion, se ejecuta tiempo despues de que se mostro el modal
-      setIdTimeOut(setTimeout(() => {
-        // console.log('set time Out');
-        ValidarRenovacion(false, () => { });
-      }, 10000));
-    } else {
-      setOpen(false);
-    }
-  }
 
-
-  // Constante para mostrar el modal de tiempo de sesion
-  const [open, setOpen] = useState(false);
-  const [idTimeOut, setIdTimeOut] = useState('')
-  const Transition = forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
-  // Modal de tiempo de sesion
-  function AlertDialog() {
-    const handleClose = () => {
-      setOpen(false);
-    };
-    const Renovar = () => {
-      ValidarRenovacion(true, mostrarModal);
-      setOpen(false);
-      // Cancela el SetTimeOut que hace el logOut
-      clearTimeout(idTimeOut)
-    };
-    const Cerrar = () => {
-      ValidarRenovacion(false, mostrarModal);
-      setOpen(false);
-    };
-    // console.log('este es el inicial', initial);
-    return (
-      <div>
-
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={Transition}
-          keepMounted
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle style={
-            {
-              color: '#00AB55',
-              fontWeight: 'bold'
-            }
-          }>
-            Pantalla Inactiva
-          </DialogTitle>
-
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              ¿Deseas mas tiempo para seguir trabajando?
-            </DialogContentText>
-          </DialogContent>
-
-          <DialogActions>
-            <Button onClick={Renovar}
-              style={
-                {
-                  color: '#bdbdbd',
-                }
-              }>
-              Salir de la pagina
-            </Button>
-            <Button onClick={Cerrar} variant="contained" color='success'>Continuar</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  }
-
-  return <> < AlertDialog />  <AuthContext.Provider value={memoizedValue} >{children}</AuthContext.Provider></>;
+  return <>   <AuthContext.Provider value={memoizedValue} >{children}</AuthContext.Provider></>;
 }
 
 

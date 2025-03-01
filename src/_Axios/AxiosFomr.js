@@ -100,8 +100,6 @@ export function AxiosObtenerDatosExternoUsuarioCURP(url,curp, succesFunc, errorF
         });
 }
 
-
-
 export function AxiosObtenerDatosExternoUsuario(endPointURL,idEmpleado,nombreUsuario,correoUsuario,succesFunc,errorFunc) {
 
     const token = localStorage.getItem('tokenExterno'); 
@@ -234,7 +232,6 @@ export function AxiosComboSistemas(endPointURL, valorFiltro, succesFunc) {
         .catch(error => {  console.log('Error en el combo sistemas ', error) })
 }
 
-
 export function AxiosEliminar(url, name, metodoOK, metodoError) {
     const urlEndPoint = HOST_API_LOCAL + url;
     const empleadoActual = localStorage.getItem('EmpleadoId');
@@ -262,7 +259,6 @@ export function AxiosEliminar(url, name, metodoOK, metodoError) {
         });
 }
 
-
 export function AxiosFiltroSucces(endPointURL, valorFiltro, succesFunc) {
     const urlAUX = HOST_API_LOCAL + endPointURL;
     const AUT = `Bearer ${localStorage.getItem('accessToken')}`;
@@ -274,7 +270,6 @@ export function AxiosFiltroSucces(endPointURL, valorFiltro, succesFunc) {
         })
         .catch(error => {  console.log('el error', error) })
 }
-
 
 export function AxiosActivarMulti(endPointURL, param, succesFunc) {
     const urlAUX = HOST_API_LOCAL + endPointURL;

@@ -26,7 +26,7 @@ import {
   ProfileHistorial,
   // ProfileFollowers,
 } from '../../sections/@dashboard/user/profile';
-import EmpleadoProfilePrivate from '../../sections/@dashboard/empleado/EmpleadoProfilePrivate'
+// import EmpleadoProfilePrivate from '../../sections/@dashboard/empleado/EmpleadoProfilePrivate'
 import { HOST_API_LOCAL, END_POINT_OBTENER_EMPLEADO } from '../../config-global';
 
 // ----------------------------------------------------------------------
@@ -73,7 +73,7 @@ export default function UserProfilePage() {
       value: 'configuracion',
       label: 'Configuración',    
       icon: <Iconify icon="ic:round-account-box" />,
-      component: <EmpleadoProfilePrivate isEdit currentEmpleado={currentEmpleado} />,
+      // component: <EmpleadoProfilePrivate isEdit currentEmpleado={currentEmpleado} />,
       // component: <ProfileFollowers followers={_userFollowers} />,
     },
     // {
