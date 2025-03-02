@@ -1,9 +1,7 @@
 // routes
 import {
     HOST_API_KEY,
-    END_POINT_RENOVAR_TOKEN,
-    END_POINT_SISTEMAS_RENOVAR_TOKEN,
-    HOST_API_SISTEMAS
+    END_POINT_RENOVAR_TOKEN
 } from '../config-global';
 import { PATH_AUTH } from '../routes/paths';
 // utils

@@ -3,7 +3,7 @@ import { Stack, AppBar, Avatar, Box, Button, Card, Dialog, Divider, Grid, IconBu
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { CloseIcon } from '../../../../theme/overrides/CustomIcons';
-import { HOST_API_LOCAL, END_POINT_HISTORIAL_BALANCE_JEFE_DIRECTO} from '../../../../config-global';
+import { HOST_API_LOCAL} from '../../../../config-global';
 // import GenericDataGridCustom from '../../../_examples/mui/data-grid/GenericDataGridCostom';
 // import DialogEditarSolicitud from '../../../../pages/Vacaciones/EdicionSolicitud';
 // import { RenderPeriodo, RenderStatus, RendertipoPeticion } from '../../../../pages/Vacaciones/MetodosAUX';
@@ -43,26 +43,6 @@ function stringAvatar(name) {
 export default function Lider() {
 
   const [arrayLider, setArrayLider] = React.useState([])
-
-  React.useEffect(() => {
-
-    function ObtenerEmpleados() {
-      const urlEndPoint = HOST_API_LOCAL + END_POINT_HISTORIAL_BALANCE_JEFE_DIRECTO;
-      const AUT = `Bearer ${localStorage.getItem('accessToken')}`;
-      const jefe = localStorage.getItem('EmpleadoId');
-      axios({
-        method: 'get',
-        url: urlEndPoint,
-        params: { EmpleadoId: jefe },
-        headers: { 'Authorization': AUT }
-      }).then(response => {
-        console.log('este es el response de axios', response.data)
-        setArrayLider(response.data)
-      }).catch(() => {
-      })
-    }
-    ObtenerEmpleados()
-  }, [])
 
   return (
     <>

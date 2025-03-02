@@ -1,10 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 // @mui
 import {
     Card,
-    TableContainer,
     Typography,
     Tabs,
     Tab,
@@ -12,7 +10,6 @@ import {
     Grid,
     CardContent} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
@@ -21,14 +18,9 @@ import { _employeeList } from '../../_mock/arrays';
 import CustomBreadcrumbs from '../../components/custom-breadcrumbs';
 // sections
 import Label from '../../components/label';
-import { CustomAvatar } from '../../components/custom-avatar';
 import {
-    END_POINT_BORRAR_EMPLEADO,
-    END_POINT_BANDEJAREPORTE_EMPLEADOVACACIONES,
-    END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID,
     END_POINT_REPORTES_COLOCACION_MENSUAL,
     END_POINT_REPORTES_CATALOGOS,
-    END_POINT_REPORTES_BANCOS,
     END_POINT_REPORTES_BROKERS,
     END_POINT_EMPLEADOS_BROKERS,
     END_POINT_REPORTES_OPERACION_MENSUAL,
@@ -40,8 +32,6 @@ import {
     END_POINT_REPORTES_MONTOS_OPERACIONES,
     END_POINT_REPORTES_COLOCACION_EJECUTIVO
 } from '../../config-global';
-import { AxiosEliminar } from '../../_Axios/AxiosFomr';
-import GenericDataGridCustomExport from '../../sections/_examples/mui/data-grid/GenericDataGridCostomExport';
 import FormProvider from '../../components/hook-form/FormProvider';
 import GenericCombo from '../../utils/GenericCombo';
 

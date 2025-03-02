@@ -25,10 +25,7 @@ Profile.propTypes = {
 };
 
 export default function Profile({ info, posts }) {
-  const nameJefe = 'Silvia Ramírez';
-  const avatarUrl = 'info.com';
-  const cargo = 'Gerente de Desarrollo';
-
+ 
 
   return (
     <Grid container spacing={3}>

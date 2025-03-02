@@ -11,7 +11,6 @@ import { useSnackbar } from '../../components/snackbar';
 import { PATH_AUTH } from '../../routes/paths';
 // components
 import FormProvider, { RHFTextField } from '../../components/hook-form';
-import { AxiosPasswordOlvidado } from '../../_Axios/AxiosFomr';
 
 
 // ----------------------------------------------------------------------
@@ -35,13 +34,7 @@ export default function AuthResetPasswordForm() {
 
   const onSubmit = async (data) => {
     try {
-        AxiosPasswordOlvidado(data.email, succesfunc, errorFunc);
-
-
-      // await new Promise((resolve) => setTimeout(resolve, 500));
-      // sessionStorage.setItem('email-recovery', data.email);
-      // succesfunc();
-      // navigate(PATH_AUTH.newPassword);
+        console.error(data);
     } catch (error) {
       console.error(error);
     }

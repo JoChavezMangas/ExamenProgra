@@ -1,20 +1,12 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
 import Popover from '@mui/material/Popover';
-import { Typography, Stack, Grid, Card, Button, Link } from '@mui/material';
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-
-import { RHFTextField } from '../../../../components/hook-form';
-import { END_POINT_CREAR_SOLICITUD, END_POINT_OBTENER_DATOS_TABLERO, HOST_API_KEY, HOST_API_LOCAL } from '../../../../config-global';
-
+import { Typography, Stack, Grid, Card } from '@mui/material';
+import { useState } from 'react';
 // utils
 import { bgGradient } from '../../../../utils/cssStyles';
-import { PATH_DASHBOARD } from '../../../../routes/paths';
 import { InfoIcon } from '../../../../theme/overrides/CustomIcons';
 // import Popover from '../../../../theme/overrides/Popover';
 
@@ -75,32 +67,6 @@ export default function AppWelcomeCard({ title, subheader, description, action, 
   const [personales, setPersonales] = useState(0);
   const [fechaFinn, setfechaFin] = useState(0);
 
-  useEffect(() => {
-
-    function ObtenerDatosTableros() {
-
-      const urlEndPoint = HOST_API_LOCAL + END_POINT_OBTENER_DATOS_TABLERO // END_POINT_CREAR_EPLEADO; // END_POINT_OBTENER_DATOS_TABLERO;
-      const AUT = `Bearer ${localStorage.getItem('accessToken')}`
-       // console.log(localStorage.getItem('EmpleadoId'))
-      return (
-        axios({
-          method: 'get',
-          url: urlEndPoint,
-          params: { "empleadoId": localStorage.getItem('EmpleadoId') },
-          headers: { 'Authorization': AUT }
-        }).then(response => {
-          setVacaciones(response.data.vacacionesDisponibles)
-          setPersonales(response.data.diasPersonalesDisponibles)
-          setfechaFin(response.data.fechaFinString)
-          // console.log('Vacaciones',response.data)
-        }).catch(error => {
-          console.log(error)
-        })
-      )
-    }
-
-    ObtenerDatosTableros()
-  }, [])
 
 
     const [anchorEl, setAnchorEl] = useState(null);

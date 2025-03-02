@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { es } from 'date-fns/locale';
 // form
@@ -10,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Card, Grid, Hidden, InputAdornment, Stack, TextField } from '@mui/material';
+import { Box, Button, Card, Grid, Hidden, Stack, TextField } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { useSnackbar } from '../../components/snackbar';
 import FormProvider, {
