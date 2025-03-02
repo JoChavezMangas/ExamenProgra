@@ -73,7 +73,8 @@ const navConfig = [
       //   ],
       // },
         // Empresa
-        { title: 'Registrar Pedidos', path: PATH_DASHBOARD.pedidos.inicio, icon: ICONS.user },
+
+        { title: 'Registrar Pedidos', roles: ['Administrador'], path: PATH_DASHBOARD.pedidos.inicio, icon: ICONS.user },
 
         { title: 'Reportes', path: PATH_DASHBOARD.reportes.inicio, icon: ICONS.calendar },
 

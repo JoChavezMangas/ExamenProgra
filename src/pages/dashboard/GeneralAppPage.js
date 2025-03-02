@@ -101,7 +101,7 @@ export default function GeneralAppPage() {
                 sx={{ padding: 3 }}
                 title='¡Bienvenid@! '
                 subtitle={`${nombre} ${apellidoPaterno}`}
-                description="Puedes registrar pedidos o tambien puedes consultar reportes"
+                description="Puedes consultar reportes y descargarlos"
                 img={
                   <SeoIllustration
                     sx={{
@@ -114,8 +114,9 @@ export default function GeneralAppPage() {
 
                  action={
                      <>
-                         <Button variant="contained" component={RouterLink} to='/dashboard/misvacaciones/inicio'>ir a reportes</Button>
-                         <Button variant="contained" component={RouterLink} to='/dashboard/misvacaciones/inicio'>Registrar pedidos</Button>
+                         <Button variant="contained" component={RouterLink} to='/dashboard/reportes/ReportesIndex'>ir a reportes</Button>
+                         <br/>
+                         { /* <Button variant="contained" component={RouterLink} to='/dashboard/pedidos/PedidosIndex'>Registrar pedidos</Button> */ }
                      </>
 
                 }

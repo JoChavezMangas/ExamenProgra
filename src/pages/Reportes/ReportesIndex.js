@@ -52,15 +52,15 @@ import GenericDataGridCustom from '../../sections/_examples/mui/data-grid/Generi
 export default function ReportesVacaciones() {
 
     const TABS = [
-        { value: 'colocacionMes', label: 'Colocacion por mes', component: <ColocacionMensual /> },
+        { value: 'colocacionMes', label: 'Colocación por mes', component: <ColocacionMensual /> },
         { value: 'operacionesMensuales', label: 'Operaciones Mensuales', component: <OperacionesMensuales /> },
-        { value: 'colocacionBanco', label: 'Colocacion por Banco', component: <ColcoacionBanco /> },
-        { value: 'colocacionEstado', label: 'Colocacion por Estado', component: <ColcacionEstado /> },
+        { value: 'colocacionBanco', label: 'Colocación por Banco', component: <ColcoacionBanco /> },
+        { value: 'colocacionEstado', label: 'Colocación por Estado', component: <ColcacionEstado /> },
         { value: 'crecimientoOperaciones', label: 'Crecimeinto Operaciones', component: <CrecimientoOperaciones /> },
         { value: 'crecimientoFirmado', label: 'Crecimeinto Firmado', component: <CrecimientoFirmado /> },
-        { value: 'DesgloseColocacion', label: 'Desglose Colocacion', component: <DesGloseColocacion /> },
+        { value: 'DesgloseColocacion', label: 'Desglose Colocación', component: <DesGloseColocacion /> },
         { value: 'montosOperaciones', label: 'Montos Operaciones', component: <MontosOperaciones /> },
-        { value: 'colcoacionEjecutivo', label: 'Colocacion Ejecutivo', component: <ColcoacionEjecutivo /> },
+        { value: 'colcoacionEjecutivo', label: 'Colocación Ejecutivo', component: <ColcoacionEjecutivo /> },
         // { value: 'detalles', label: 'Detalles', component: <DetallesVacaciones /> }
         // { value: 'Peticiones', label: 'Peticiones', component: <TablaPeticiones /> },
     ];
@@ -214,41 +214,45 @@ function ColocacionMensual() {
             headerName: '2025',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.a2025)
         },
         {
             field: 'a2024',
             headerName: '2024',
             flex: 1,
             editable: false,
-        }, {
+            renderCell: (params) => RenderMony(params.row.a2024)
+
+        },
+        {
             field: 'a2023',
             headerName: '2023',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.a2023)
+
         },
         {
             field: 'a2022',
             headerName: '2022',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.a2022)
+
         },
         {
             field: 'a2021',
             headerName: '2021',
             flex: 1,
             editable: false,
-        },
-        {
-            field: 'a2020',
-            headerName: '2020',
-            flex: 1,
-            editable: false,
+            renderCell: (params) => RenderMony(params.row.a2021)
         },
         {
             field: 'total',
             headerName: 'Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarMoney(params.row.total)
         },
     ];
 
@@ -266,18 +270,6 @@ function ColocacionMensual() {
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
 
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
-   
     const chageAnio = (param) => {
         setanioFiltro(param)
         setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
@@ -456,6 +448,7 @@ function OperacionesMensuales() {
             headerName: 'Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => OkRender(params.row.total)
         },
     ];
 
@@ -472,18 +465,6 @@ function OperacionesMensuales() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -628,41 +609,41 @@ function ColcoacionBanco() {
             headerName: '2025',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2025)
         },
         {
             field: 'a2024',
             headerName: '2024',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2024)
         }, {
             field: 'a2023',
             headerName: '2023',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2023)
         },
         {
             field: 'a2022',
             headerName: '2022',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2022)
         },
         {
             field: 'a2021',
             headerName: '2021',
             flex: 1,
             editable: false,
-        },
-        {
-            field: 'a2020',
-            headerName: '2020',
-            flex: 1,
-            editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2021)
         },
         {
             field: 'total',
             headerName: 'Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarPercent (params.row.total)
         },
     ];
 
@@ -679,18 +660,6 @@ function ColcoacionBanco() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -835,41 +804,41 @@ function ColcacionEstado() {
             headerName: '2025',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2025)
         },
         {
             field: 'a2024',
             headerName: '2024',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2024)
         }, {
             field: 'a2023',
             headerName: '2023',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2023)
         },
         {
             field: 'a2022',
             headerName: '2022',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2022)
         },
         {
             field: 'a2021',
             headerName: '2021',
             flex: 1,
             editable: false,
-        },
-        {
-            field: 'a2020',
-            headerName: '2020',
-            flex: 1,
-            editable: false,
+            renderCell: (params) => RenderPercentage(params.row.a2021)
         },
         {
             field: 'total',
             headerName: 'Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarPercent(params.row.total)
         },
     ];
 
@@ -886,17 +855,6 @@ function ColcacionEstado() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
 
 
     const chageAnio = (param) => {
@@ -1048,6 +1006,7 @@ function CrecimientoOperaciones() {
             headerName: 'Crecimiento',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarPercent(params.row.crecimineto)
         },
        
     ];
@@ -1065,18 +1024,6 @@ function CrecimientoOperaciones() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -1221,12 +1168,15 @@ function CrecimientoFirmado() {
             headerName: 'Operaciones',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.monto)
+
         },
         {
             field: 'crecimineto',
             headerName: 'Crecimiento',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarMoney(params.row.crecimineto)
         },
 
     ];
@@ -1244,18 +1194,6 @@ function CrecimientoFirmado() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -1400,6 +1338,7 @@ function DesGloseColocacion() {
             headerName: 'Firma Hipotecarias',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firmaHipo)
         },
         {
             field: 'operacionesHipo',
@@ -1412,6 +1351,7 @@ function DesGloseColocacion() {
             headerName: 'Firma Pyme',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firmaPyme)
         },
         {
             field: 'operacionesPyme',
@@ -1424,6 +1364,7 @@ function DesGloseColocacion() {
             headerName: 'Firma Auto',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firmaAuto)
         },
         {
             field: 'operacionesAuto',
@@ -1436,12 +1377,14 @@ function DesGloseColocacion() {
             headerName: 'Firma Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarMoney(params.row.firmaTotal)
         },
         {
             field: 'operacionesTotal',
             headerName: 'Operaciones Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => OkRender(params.row.operacionesTotal)
         },
 
     ];
@@ -1459,18 +1402,6 @@ function DesGloseColocacion() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -1615,6 +1546,8 @@ function MontosOperaciones() {
             headerName: 'Firma Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firmaTotal)
+
         },
         {
             field: 'operacionesTotal',
@@ -1627,6 +1560,7 @@ function MontosOperaciones() {
             headerName: 'Ticket',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firmaTicket)
         },
 
     ];
@@ -1644,18 +1578,6 @@ function MontosOperaciones() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -1806,6 +1728,7 @@ function ColcoacionEjecutivo() {
             headerName: 'firma2025',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firma2025)
         },
         {
             field: 'operaciones2024',
@@ -1818,6 +1741,8 @@ function ColcoacionEjecutivo() {
             headerName: 'Firma 2024',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firma2024)
+
         },
         {
             field: 'operaciones2023',
@@ -1830,6 +1755,8 @@ function ColcoacionEjecutivo() {
             headerName: 'Firma 2023',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firma2023)
+
         },
         {
             field: 'operaciones2022',
@@ -1842,6 +1769,8 @@ function ColcoacionEjecutivo() {
             headerName: 'Firma 2022',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firma2022)
+
         },
         {
             field: 'operaciones2021',
@@ -1854,6 +1783,8 @@ function ColcoacionEjecutivo() {
             headerName: 'Firma 2021',
             flex: 1,
             editable: false,
+            renderCell: (params) => RenderMony(params.row.firma2021)
+
         },
         {
             field: 'operacionesTotal',
@@ -1866,6 +1797,8 @@ function ColcoacionEjecutivo() {
             headerName: 'Firma Total',
             flex: 1,
             editable: false,
+            renderCell: (params) => ValdiarMoney(params.row.firmaTotal)
+
         },
 
     ];
@@ -1883,18 +1816,6 @@ function ColcoacionEjecutivo() {
     const [estadoFiltro, setEstadoFiltro] = useState("")
 
     const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
-
-
-    useEffect(() => {
-        const hoy = new Date();
-        setanioDefault(hoy.getFullYear());
-        setmesDefault(hoy.getMonth());
-    }, [setanioDefault, setmesDefault])
-
-    useEffect(() => {
-        console.log('el parametro generico', parametroGenerico);
-    }, [parametroGenerico])
-
 
     const chageAnio = (param) => {
         setanioFiltro(param)
@@ -2009,9 +1930,12 @@ function ColcoacionEjecutivo() {
 
 
 
-function RenderPeriodo(periodo) {
+
+function OkRender(data) {
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
+
+
     return (
         <div>
             <Label
@@ -2019,7 +1943,93 @@ function RenderPeriodo(periodo) {
                 color='success'
                 sx={{ mx: 'auto' }}
             >
-                {periodo}
+                {data}
+            </Label>
+        </div>
+    );
+}
+
+function ValdiarPercent(data) {
+    const theme = useTheme();
+    const isLight = theme.palette.mode === 'light';
+
+    let thisColor = 'success';
+    if (data < 0)
+        thisColor = 'error';
+
+    return (
+        <div>
+            <Label
+                variant={isLight ? 'soft' : 'filled'}
+                color={thisColor}
+                sx={{ mx: 'auto' }}
+            >
+                {data}%
+            </Label>
+        </div>
+    );
+}
+
+function ValdiarMoney(data) {
+    const theme = useTheme();
+    const isLight = theme.palette.mode === 'light';
+
+    const formattedAmount = new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN', // Moneda mexicana
+    }).format(data);
+
+    let thisColor = 'success';
+    if (data < 0)
+        thisColor = 'error';
+
+    return (
+        <div>
+            <Label
+                variant={isLight ? 'soft' : 'filled'}
+                color={thisColor}
+                sx={{ mx: 'auto' }}
+            >
+                {formattedAmount}
+            </Label>
+        </div>
+    );
+}
+
+function RenderMony( amount,color ) {
+    const theme = useTheme();
+    const isLight = theme.palette.mode === 'light';
+
+    // Formatear el monto como dinero en pesos mexicanos
+    const formattedAmount = new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN', // Moneda mexicana
+    }).format(amount);
+
+    return (
+        <div>
+            <Label
+                variant={isLight ? 'soft' : 'filled'}
+                color={color}
+                sx={{ mx: 'auto' }}
+            >
+                {formattedAmount}
+            </Label>
+        </div>
+    );
+}
+
+function RenderPercentage(percent, Color) {
+    const theme = useTheme();
+    const isLight = theme.palette.mode === 'light';
+    return (
+        <div>
+            <Label
+                variant={isLight ? 'soft' : 'filled'}
+                color={Color}
+                sx={{ mx: 'auto' }}
+            >
+                {percent}%
             </Label>
         </div>
     );
