@@ -12,10 +12,10 @@ import { PATH_DASHBOARD } from './routes/paths';
 
 
 
- export const HOST_API_KEY = "https://pr.conecta.lat/";
- export const HOST_API_LOCAL = "https://pr.conecta.lat/";
-// export const HOST_API_KEY = "https://localhost:7285/";
-// export const HOST_API_LOCAL = "https://localhost:7285/";
+// export const HOST_API_KEY = "https://pr.conecta.lat/";
+// export const HOST_API_LOCAL = "https://pr.conecta.lat/";
+ export const HOST_API_KEY = "https://localhost:7285/";
+ export const HOST_API_LOCAL = "https://localhost:7285/";
 // export const HOST_API_SISTEMAS = "https://papiexternos.sisec.mx/";
 // export const END_POINT_OBTENER_DOCUMENTO = "http://apidocumentv3.sisec.mx/api/document/getDocument?documentId=";
 // export const END_POINT_TOKEN_DOCUMENTO = "http://apidocumentv3.sisec.mx/token";
@@ -25,6 +25,32 @@ import { PATH_DASHBOARD } from './routes/paths';
 // export const MOSTRAR_LOGIN = "ESCONDER";
 
 export const TESTIGO = "20241004";
+
+
+export const END_POINT_LOGINRAPIDO = "api/cuentas/ResultadoRapidoLogin";
+export const END_POINT_LOGIN = "api/cuentas/Login";
+export const END_POINT_PEDIDOS_CATALOGOS = "api/pedidos/ObetenerCombo";
+export const END_POINT_PEDIDOS_BANCOS = "api/pedidos/ObtenerBancos";
+export const END_POINT_PEDIDOS_BROKERS = "api/pedidos/ObtenerBrokers";
+export const END_POINT_PEDIDOS_REGISTRAR = "api/pedidos/RegistrarPedidos";
+
+
+export const END_POINT_REPORTES_COLOCACION_MENSUAL = "api/reportes/ColocacionMensual";
+export const END_POINT_REPORTES_OPERACION_MENSUAL = "api/reportes/OperacionesMensual";
+export const END_POINT_REPORTES_COLOCACION_BANCO = "api/reportes/ColocacionBancos";
+export const END_POINT_REPORTES_COLOCACION_ESTADO = "api/reportes/ColocacionEstados";
+export const END_POINT_REPORTES_CRECIMIENTO_OPERACIONES = "api/reportes/CrecimientoOperaciones";
+export const END_POINT_REPORTES_CRECIMIENTO_FIRMADO = "api/reportes/CrecimientoFirmado";
+export const END_POINT_REPORTES_DESGLOSE_COLOCACIONES = "api/reportes/DesgloseColocaciones";
+export const END_POINT_REPORTES_MONTOS_OPERACIONES = "api/reportes/MontosOperaciones";
+export const END_POINT_REPORTES_COLOCACION_EJECUTIVO = "api/reportes/ColcoacionEjecutivo";
+export const END_POINT_REPORTES_CATALOGOS = "api/reportes/ObetenerCombo";
+export const END_POINT_REPORTES_BANCOS = "api/reportes/ObtenerBancos";
+export const END_POINT_REPORTES_BROKERS = "api/reportes/ObtenerBrokers";
+
+export const END_POINT_EMPLEADOS_BROKERS = "api/empleado/ObetenerComboEmpleados";
+
+
 
 export const END_POINT_SISTEMAS_RENOVAR_TOKEN = "api/authenticationservice/token";
 export const END_POINT_RENOVAR_TOKEN = "api/cuentas/RenovarToken";
@@ -154,7 +180,7 @@ export const END_POINT_REACTIVAR_EMPLEADO = "api/Empleado/ReactivarEmpleado";
 export const END_POINT_BANDEJAREPORTE_EMPLEADOVACACIONES = "api/SolicitudesIncidencias/BandejaReporteEmpleadoVacaciones";
 export const END_POINT_LOGIN_MULTILOGIN = "api/cuentas/obtener";
 export const END_POINT_LOGOUT_MULTILOGIN = "api/cuentas/LogeOut";
-export const END_POINT_LOGINRAPIDO = "api/cuentas/ResultadoRapidoLogin";
+
 export const END_POINT_OBTENER_GENERALESVACACIONES = "api/SolicitudesIncidencias/DetallesGeneralesVacacionesEmpleado";
 export const END_POINT_OBTENER_HISTVACACIONES = "api/SolicitudesIncidencias/HisorialGeneralesVacacionesEmpleado";
 
@@ -166,7 +192,7 @@ export const END_POINT_OBTENER_DOC_API_CONECTA = "api/ComunAuxiliares/ObtenerDoc
 export const END_POINT_BANDEJA_LOGS = "api/ComunAuxiliares/BandejaLog";
 export const END_POINT_ACTUALIZAR_CURP_IDEXTERNO = "api/Empleado/ActualizarCURPIdExterno";
 
-
+export const LOGE_OUT = "/dashboard/app";
 
 export const TEXTO_ERROR_PASS = "Las contrase�as deben de coincidir";
 

@@ -17,7 +17,7 @@ import { useAuthContext } from '../../auth/useAuthContext';
 // components
 import Iconify from '../../components/iconify';
 import FormProvider, { RHFTextField } from '../../components/hook-form';
-import { HOST_API_KEY, END_POINT_LOGIN_MULTILOGIN, END_POINT_LOGINRAPIDO, MOSTRAR_LOGIN, TESTIGO } from '../../config-global';
+import { HOST_API_KEY, END_POINT_LOGIN ,END_POINT_LOGINRAPIDO, MOSTRAR_LOGIN, TESTIGO } from '../../config-global';
 import { useSnackbar } from '../../components/snackbar';
 // import { functions } from 'lodash';
 
@@ -135,18 +135,7 @@ export default function AuthLoginForm() {
         />
       </Stack>
 
-     <Stack alignItems="center" sx={{ my: 2, mt: 3, mb: 3 }}>
-        <Link
-          component={RouterLink}
-          to={PATH_AUTH.resetPassword}
-          variant="body2"
-          color="primary"
-          underline="always"
-        >
-          ¿Olvidaste tu contraseña?
-        </Link>
-                  </Stack>
-
+   
      <LoadingButton
         sx={{marginBottom:2}}
         fullWidth

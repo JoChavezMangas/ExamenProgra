@@ -26,7 +26,19 @@ import {
     END_POINT_BORRAR_EMPLEADO,
     END_POINT_BANDEJAREPORTE_EMPLEADOVACACIONES,
     END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID,
-    END_POINT_REPORTE_VACACIONES_TOMADAS
+    END_POINT_REPORTES_COLOCACION_MENSUAL,
+    END_POINT_REPORTES_CATALOGOS,
+    END_POINT_REPORTES_BANCOS,
+    END_POINT_REPORTES_BROKERS,
+    END_POINT_EMPLEADOS_BROKERS,
+    END_POINT_REPORTES_OPERACION_MENSUAL,
+    END_POINT_REPORTES_COLOCACION_BANCO,
+    END_POINT_REPORTES_COLOCACION_ESTADO,
+    END_POINT_REPORTES_CRECIMIENTO_OPERACIONES,
+    END_POINT_REPORTES_CRECIMIENTO_FIRMADO,
+    END_POINT_REPORTES_DESGLOSE_COLOCACIONES,
+    END_POINT_REPORTES_MONTOS_OPERACIONES,
+    END_POINT_REPORTES_COLOCACION_EJECUTIVO
 } from '../../config-global';
 import { AxiosEliminar } from '../../_Axios/AxiosFomr';
 import GenericDataGridCustomExport from '../../sections/_examples/mui/data-grid/GenericDataGridCostomExport';
@@ -40,13 +52,20 @@ import GenericDataGridCustom from '../../sections/_examples/mui/data-grid/Generi
 export default function ReportesVacaciones() {
 
     const TABS = [
-        { value: 'vacaciones', label: 'Vacaciones', component: <Historial /> },
-        { value: 'personales', label: 'Personales', component: <Personales /> },
+        { value: 'colocacionMes', label: 'Colocacion por mes', component: <ColocacionMensual /> },
+        { value: 'operacionesMensuales', label: 'Operaciones Mensuales', component: <OperacionesMensuales /> },
+        { value: 'colocacionBanco', label: 'Colocacion por Banco', component: <ColcoacionBanco /> },
+        { value: 'colocacionEstado', label: 'Colocacion por Estado', component: <ColcacionEstado /> },
+        { value: 'crecimientoOperaciones', label: 'Crecimeinto Operaciones', component: <CrecimientoOperaciones /> },
+        { value: 'crecimientoFirmado', label: 'Crecimeinto Firmado', component: <CrecimientoFirmado /> },
+        { value: 'DesgloseColocacion', label: 'Desglose Colocacion', component: <DesGloseColocacion /> },
+        { value: 'montosOperaciones', label: 'Montos Operaciones', component: <MontosOperaciones /> },
+        { value: 'colcoacionEjecutivo', label: 'Colocacion Ejecutivo', component: <ColcoacionEjecutivo /> },
         // { value: 'detalles', label: 'Detalles', component: <DetallesVacaciones /> }
         // { value: 'Peticiones', label: 'Peticiones', component: <TablaPeticiones /> },
     ];
 
-    const [currentTab, setCurrentTab] = useState('vacaciones');
+    const [currentTab, setCurrentTab] = useState('colocacionMes');
 
 
     return (
@@ -67,10 +86,6 @@ export default function ReportesVacaciones() {
                 ]}
             />
 
-
-
-
-
             <Box sx={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'flex-start', marginTop: '-20px' }}>
                 <Tabs value={currentTab} onChange={(event, newValue) => setCurrentTab(newValue)} >
                     {TABS.map((tab) => (
@@ -82,8 +97,8 @@ export default function ReportesVacaciones() {
                                 borderLeft: 'rgba(145, 158, 171, 0.14) 1px solid',
                                 borderRight: 'rgba(145, 158, 171, 0.14) 1px solid',
                                 borderRadius: '8px 8px 0 0',
-                                paddingLeft: '10px',
-                                paddingRight: '10px'
+                                paddingLeft: '5px',
+                                paddingRight: '5px'
                             }}
                         />
                     ))}
@@ -125,7 +140,7 @@ export default function ReportesVacaciones() {
 
 
 
-function Historial() {
+function ColocacionMensual() {
 
     const descargarArchivoExcel = async (parametro1, parametro2) => {
 
@@ -178,7 +193,6 @@ function Historial() {
 
     const onSubmit = async (data) => {
         try {
-            console.log(data);
             setCargando(true);
             descargarArchivoExcel(data.periodos, data.mes)
 
@@ -190,53 +204,43 @@ function Historial() {
 
     const columnsReporte = [
         {
-            field: 'id',
-            headerName: 'id',
-            width: 350,
-            editable: false,
-            renderCell: (params) => RenderStatus(params.row.id, params.row),
-            hide: true
-        },
-        {
-            field: 'nombreCompleto',
-            headerName: 'Nombre Completo',
+            field: 'mes',
+            headerName: 'mes',
             flex: 1,
             editable: false,
         },
         {
-            field: 'empresa',
-            headerName: 'Empresa',
+            field: 'a2025',
+            headerName: '2025',
             flex: 1,
             editable: false,
         },
         {
-            field: 'subarea',
-            headerName: 'Subarea',
+            field: 'a2024',
+            headerName: '2024',
             flex: 1,
             editable: false,
-        },
-
-        {
-            field: 'puesto',
-            headerName: 'Puesto',
-            flex: 1,
-            editable: false,
-        },
-        {
-            field: 'tipo',
-            headerName: 'VAC / D.E.',
+        }, {
+            field: 'a2023',
+            headerName: '2023',
             flex: 1,
             editable: false,
         },
         {
-            field: 'fechaIniciostring',
-            headerName: 'FECHA INICIO',
+            field: 'a2022',
+            headerName: '2022',
             flex: 1,
             editable: false,
         },
         {
-            field: 'fechaFinalstring',
-            headerName: 'FECHA FINAL',
+            field: 'a2021',
+            headerName: '2021',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'a2020',
+            headerName: '2020',
             flex: 1,
             editable: false,
         },
@@ -246,20 +250,21 @@ function Historial() {
             flex: 1,
             editable: false,
         },
-        {
-            field: 'lider',
-            headerName: 'Lider',
-            flex: 1,
-            editable: false,
-        },
     ];
 
-    const fechaHoy = new Date();
-    const [anioDefault, setanioDefault] = useState(fechaHoy.getFullYear());
-    const [mesDefault, setmesDefault] = useState(fechaHoy.getMonth());
-    const [anioFiltro, setanioFiltro] = useState(fechaHoy.getFullYear());
-    const [mesFiltro, setmesFiltro] = useState(fechaHoy.getMonth());
-    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}`);
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
 
 
     useEffect(() => {
@@ -272,13 +277,26 @@ function Historial() {
         console.log('el parametro generico', parametroGenerico);
     }, [parametroGenerico])
 
-    const chageMes = (param) => {
-        setmesFiltro(param)
-        setparametroGenerico(`#${anioFiltro}#${param}`)
-    }
+   
     const chageAnio = (param) => {
         setanioFiltro(param)
-        setparametroGenerico(`#${param}#${mesFiltro}`)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
     }
 
     return (
@@ -295,7 +313,7 @@ function Historial() {
                                 display="grid"
                                 gridTemplateColumns={{
                                     xs: 'repeat(1, 1fr)',
-                                    sm: 'repeat(4, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
                                 }}
                             >
                                 <GenericCombo
@@ -303,9 +321,9 @@ function Historial() {
                                     nameAUX="periodos"
                                     label="Año"
                                     placeholder="Periodo"
-                                    endPointURL={END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID}
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
                                     onChangeFunc={chageAnio}
-                                    valorFiltro="anio"
+                                    valorFiltro="Año"
                                     valorDefault={anioDefault}
                                     useChange
                                 />
@@ -315,35 +333,46 @@ function Historial() {
                                     nameAUX="mes"
                                     label="Mes"
                                     placeholder="Mes"
-                                    endPointURL={END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID}
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
                                     onChangeFunc={chageMes}
-                                    valorFiltro="Meses"
+                                    valorFiltro="Mes"
                                     valorDefault={mesDefault}
                                     useChange
                                 />
                                 <GenericCombo
                                     // disabled={disabled}
-                                    nameAUX="mes"
-                                    label="Mes"
-                                    placeholder="Mes"
-                                    endPointURL={END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID}
-                                    onChangeFunc={chageMes}
-                                    valorFiltro="Meses"
-                                    valorDefault={mesDefault}
-                                    useChange
-                                />
-                                <GenericCombo
-                                    // disabled={disabled}
-                                    nameAUX="mes"
-                                    label="Mes"
-                                    placeholder="Mes"
-                                    endPointURL={END_POINT_OBTENER_VALOR_ALTENO_CATALOGO_ID}
-                                    onChangeFunc={chageMes}
-                                    valorFiltro="Meses"
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
                                     valorDefault={mesDefault}
                                     useChange
                                 />
 
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
 
                             </Box>
 
@@ -353,345 +382,1631 @@ function Historial() {
             </FormProvider>
 
 
-            <GenericDataGridCustom EndPoint={END_POINT_REPORTE_VACACIONES_TOMADAS} genericParamAUX={parametroGenerico} columns={columnsReporte} />
-            <GenericDataGridCustom EndPoint={END_POINT_REPORTE_VACACIONES_TOMADAS} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_COLOCACION_MENSUAL} genericParamAUX={parametroGenerico} columns={columnsReporte} />
 
         </>
     );
 }
 
+function OperacionesMensuales() {
+    const methods = useForm({});
 
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
 
+    const [cargando, setCargando] = useState(false);
 
-
-
-
-
-
-
-
-
-
-function Vacaciones() {
-
-    const perfilUsuario = localStorage.getItem('RolId');
-    const [openConfirm, setOpenConfirm] = useState(false);
-    const [tableData, setTableData] = useState(_employeeList);
-    const [nombreCompleto, setNombreCompleto] = useState('');
-    const [IdAUX, setIdAUX] = useState();
-    const [editRowId, setEditRowId] = useState(null);
-
-    const navigate = useNavigate();
-
-    // console.log("RolId es ", perfilUsuario);
-
-    const handleOpenConfirm = (id, nombreCompletoo) => {
-        setIdAUX(id)
-        // console.log('Est es el ID', id)
-        // setOpenPopover(e.currentTarget);
-        setNombreCompleto(nombreCompletoo);
-        setOpenConfirm(true);
-    };
-    const handleCloseConfirm = () => {
-        setOpenConfirm(false);
-    };
-    const handleEditRow = (id) => {
-        console.log(id)
-        navigate(PATH_DASHBOARD.empleado.edit(id));
-    };
-
-    const handleDeleteRow = (id) => {
-        const deleteRow = tableData.filter((row) => row.id !== id);
-        setTableData(deleteRow);
-        setOpenConfirm(false);
-    };
-
-    const { enqueueSnackbar } = useSnackbar();
-
-    const onDelete = async (id) => {
+    const onSubmit = async (data) => {
         try {
-            await AxiosEliminar(END_POINT_BORRAR_EMPLEADO, id, succesFunc, enqueueSnackbar);;
+            setCargando(true);
+
         } catch (error) {
             console.error(error);
+            setCargando(false);
         }
     };
 
-    const [refreshAUX, setRefreshAUX] = useState('')
-
-    const succesFunc = () => {
-        setRefreshAUX(new Date().getTime())
-    }
-
-    const columns = [
+    const columnsReporte = [
         {
-            field: 'avatar',
-            headerName: '',
-            align: 'center',
-            headerAlign: 'center',
-            width: 64,
-            sortable: false,
-            filterable: false,
-            disableColumnMenu: true,
-            renderCell: (params) => <CustomAvatar name={params.row.nombreCompleto} sx={{ width: 36, height: 36 }} />,
-        },
-        {
-            field: 'nombreCompleto',
-            headerName: 'Colaborador',
-            width: 250,
+            field: 'mes',
+            headerName: 'mes',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'nombreEmpresa',
-            headerName: 'Empresa',
-            width: 150,
+            field: 'a2025',
+            headerName: '2025',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'nombreArea',
-            headerName: 'Area',
-            width: 150,
+            field: 'a2024',
+            headerName: '2024',
+            flex: 1,
+            editable: false,
+        }, {
+            field: 'a2023',
+            headerName: '2023',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'nombreDepartamento',
-            headerName: 'Departamento',
-            width: 150,
+            field: 'a2022',
+            headerName: '2022',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'totalDiasDisponibles',
-            headerName: 'Total de dias disponibles',
-            width: 150,
+            field: 'a2021',
+            headerName: '2021',
+            flex: 1,
             editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.totalDiasDisponibles),
         },
         {
-            field: 'periodo1',
-            headerName: 'Período 23-24',
-            width: 150,
+            field: 'a2020',
+            headerName: '2020',
+            flex: 1,
             editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.periodo1),
         },
         {
-            field: 'periodo2',
-            headerName: 'Período 22-23',
-            width: 150,
+            field: 'total',
+            headerName: 'Total',
+            flex: 1,
             editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.periodo2),
         },
-        {
-            field: 'periodo3',
-            headerName: 'Período 21-22',
-            width: 150,
-            editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.periodo3),
-        },
-        {
-            field: 'fechaRenovacionString',
-            headerName: 'Fecha de renovacion',
-            width: 150,
-            editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.fechaRenovacionString),
-        },
-        {
-            field: 'fechaIngresoString',
-            headerName: 'Fecha de ingreso',
-            width: 150,
-            editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.fechaIngresoString),
-        },
-
-
     ];
 
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
 
     return (
         <>
 
 
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
 
 
-
-
-
-            <Card >
-
-
-                
-
-
-
-                    <TableContainer sx={{ marginTop: '0px', position: 'relative', overflow: 'unset' }} style={{ width: '100%' }}>
-                        <GenericDataGridCustomExport
-                            EndPoint={END_POINT_BANDEJAREPORTE_EMPLEADOVACACIONES}
-                            columns={columns} refresh={refreshAUX}
-                            genericParamAUX="Vacaciones"
-                        />
-                    </TableContainer>
-             </Card>
-            {/* </Container> */}
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_OPERACION_MENSUAL} genericParamAUX={parametroGenerico} columns={columnsReporte} />
 
         </>
     );
-}
+} 
 
+function ColcoacionBanco() {
+    const methods = useForm({});
 
-function Personales() {
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
 
+    const [cargando, setCargando] = useState(false);
 
-
-    const perfilUsuario = localStorage.getItem('RolId');
-    const [openConfirm, setOpenConfirm] = useState(false);
-    const [tableData, setTableData] = useState(_employeeList);
-    const [nombreCompleto, setNombreCompleto] = useState('');
-    const [IdAUX, setIdAUX] = useState();
-    const [editRowId, setEditRowId] = useState(null);
-
-    const navigate = useNavigate();
-
-    console.log("RolId es ", perfilUsuario);
-
-    const handleOpenConfirm = (id, nombreCompletoo) => {
-        setIdAUX(id)
-        // console.log('Est es el ID', id)
-        // setOpenPopover(e.currentTarget);
-        setNombreCompleto(nombreCompletoo);
-        setOpenConfirm(true);
-    };
-    const handleCloseConfirm = () => {
-        setOpenConfirm(false);
-    };
-    const handleEditRow = (id) => {
-        console.log(id)
-        navigate(PATH_DASHBOARD.empleado.edit(id));
-    };
-
-    const handleDeleteRow = (id) => {
-        const deleteRow = tableData.filter((row) => row.id !== id);
-        setTableData(deleteRow);
-        setOpenConfirm(false);
-    };
-
-    const { enqueueSnackbar } = useSnackbar();
-
-    const onDelete = async (id) => {
+    const onSubmit = async (data) => {
         try {
-            await AxiosEliminar(END_POINT_BORRAR_EMPLEADO, id, succesFunc, enqueueSnackbar);;
+            setCargando(true);
+
         } catch (error) {
             console.error(error);
+            setCargando(false);
         }
     };
 
-    const [refreshAUX, setRefreshAUX] = useState('')
-
-    const succesFunc = () => {
-        setRefreshAUX(new Date().getTime())
-    }
-
-    const columns = [
+    const columnsReporte = [
         {
-            field: 'avatar',
-            headerName: '',
-            align: 'center',
-            headerAlign: 'center',
-            width: 64,
-            sortable: false,
-            filterable: false,
-            disableColumnMenu: true,
-            renderCell: (params) => <CustomAvatar name={params.row.nombreCompleto} sx={{ width: 36, height: 36 }} />,
-        },
-        {
-            field: 'nombreCompleto',
-            headerName: 'Colaborador',
-            width: 250,
+            field: 'banco',
+            headerName: 'Banco',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'nombreEmpresa',
-            headerName: 'Empresa',
-            width: 150,
+            field: 'a2025',
+            headerName: '2025',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'nombreArea',
-            headerName: 'Area',
-            width: 150,
+            field: 'a2024',
+            headerName: '2024',
+            flex: 1,
+            editable: false,
+        }, {
+            field: 'a2023',
+            headerName: '2023',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'nombreDepartamento',
-            headerName: 'Departamento',
-            width: 150,
+            field: 'a2022',
+            headerName: '2022',
+            flex: 1,
             editable: false,
         },
         {
-            field: 'totalDiasDisponibles',
-            headerName: 'Total de dias disponibles',
-            width: 150,
+            field: 'a2021',
+            headerName: '2021',
+            flex: 1,
             editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.totalDiasDisponibles),
         },
         {
-            field: 'periodo1',
-            headerName: 'Período 23-24',
-            width: 150,
+            field: 'a2020',
+            headerName: '2020',
+            flex: 1,
             editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.periodo1),
         },
         {
-            field: 'periodo2',
-            headerName: 'Período 22-23',
-            width: 150,
+            field: 'total',
+            headerName: 'Total',
+            flex: 1,
             editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.periodo2),
         },
-        {
-            field: 'periodo3',
-            headerName: 'Período 21-22',
-            width: 150,
-            editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.periodo3),
-        },
-        {
-            field: 'fechaRenovacionString',
-            headerName: 'Fecha de renovacion',
-            width: 150,
-            editable: false,
-            renderCell: (params) => RenderPeriodo(params.row.fechaRenovacionString),
-        },
-
     ];
 
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
 
     return (
         <>
 
-            {/* <Container> */}
 
-            {/*
-            <CustomBreadcrumbs
-                heading={
-                    <>Reportes Días Personales</>
-                }
-                links={[{ name: '' },]}
-            />
-            */}
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
 
-            <Card>
-                <TableContainer sx={{ marginTop: '0px', position: 'relative', overflow: 'unset' }} style={{ width: '100%' }}>
-                    <GenericDataGridCustomExport
-                        EndPoint={END_POINT_BANDEJAREPORTE_EMPLEADOVACACIONES}
-                        columns={columns} refresh={refreshAUX}
-                        genericParamAUX="Personales"
-                    />
-                </TableContainer>
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
 
-            </Card>
-            {/* </Container> */}
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_COLOCACION_BANCO} genericParamAUX={parametroGenerico} columns={columnsReporte} />
 
         </>
     );
-}
+} 
+
+function ColcacionEstado() {
+    const methods = useForm({});
+
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (data) => {
+        try {
+            setCargando(true);
+
+        } catch (error) {
+            console.error(error);
+            setCargando(false);
+        }
+    };
+
+    const columnsReporte = [
+        {
+            field: 'estado',
+            headerName: 'Estado',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'a2025',
+            headerName: '2025',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'a2024',
+            headerName: '2024',
+            flex: 1,
+            editable: false,
+        }, {
+            field: 'a2023',
+            headerName: '2023',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'a2022',
+            headerName: '2022',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'a2021',
+            headerName: '2021',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'a2020',
+            headerName: '2020',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'total',
+            headerName: 'Total',
+            flex: 1,
+            editable: false,
+        },
+    ];
+
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
+
+    return (
+        <>
+
+
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_COLOCACION_ESTADO} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+
+        </>
+    );
+} 
+
+function CrecimientoOperaciones() {
+    const methods = useForm({});
+
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (data) => {
+        try {
+            setCargando(true);
+
+        } catch (error) {
+            console.error(error);
+            setCargando(false);
+        }
+    };
+
+    const columnsReporte = [
+        {
+            field: 'anio',
+            headerName: 'Año',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operaciones',
+            headerName: 'Operaciones',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'crecimineto',
+            headerName: 'Crecimiento',
+            flex: 1,
+            editable: false,
+        },
+       
+    ];
+
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
+
+    return (
+        <>
+
+
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_CRECIMIENTO_OPERACIONES} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+
+        </>
+    );
+} 
+
+function CrecimientoFirmado() {
+    const methods = useForm({});
+
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (data) => {
+        try {
+            setCargando(true);
+
+        } catch (error) {
+            console.error(error);
+            setCargando(false);
+        }
+    };
+
+    const columnsReporte = [
+        {
+            field: 'anio',
+            headerName: 'Año',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'monto',
+            headerName: 'Operaciones',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'crecimineto',
+            headerName: 'Crecimiento',
+            flex: 1,
+            editable: false,
+        },
+
+    ];
+
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
+
+    return (
+        <>
+
+
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_CRECIMIENTO_FIRMADO} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+
+        </>
+    );
+} 
+
+function DesGloseColocacion() {
+    const methods = useForm({});
+
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (data) => {
+        try {
+            setCargando(true);
+
+        } catch (error) {
+            console.error(error);
+            setCargando(false);
+        }
+    };
+
+    const columnsReporte = [
+        {
+            field: 'anio',
+            headerName: 'Año',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaHipo',
+            headerName: 'Firma Hipotecarias',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operacionesHipo',
+            headerName: 'Operaciones Hipotecarias',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaPyme',
+            headerName: 'Firma Pyme',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operacionesPyme',
+            headerName: 'Operaciones Pyme',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaAuto',
+            headerName: 'Firma Auto',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operacionesAuto',
+            headerName: 'Operaciones Auto',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaTotal',
+            headerName: 'Firma Total',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operacionesTotal',
+            headerName: 'Operaciones Total',
+            flex: 1,
+            editable: false,
+        },
+
+    ];
+
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
+
+    return (
+        <>
+
+
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_DESGLOSE_COLOCACIONES} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+
+        </>
+    );
+} 
+
+function MontosOperaciones() {
+    const methods = useForm({});
+
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (data) => {
+        try {
+            setCargando(true);
+
+        } catch (error) {
+            console.error(error);
+            setCargando(false);
+        }
+    };
+
+    const columnsReporte = [
+        {
+            field: 'anio',
+            headerName: 'Año',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaTotal',
+            headerName: 'Firma Total',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operacionesTotal',
+            headerName: 'Operaciones Total',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaTicket',
+            headerName: 'Ticket',
+            flex: 1,
+            editable: false,
+        },
+
+    ];
+
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
+
+    return (
+        <>
+
+
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_MONTOS_OPERACIONES} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+
+        </>
+    );
+} 
+
+function ColcoacionEjecutivo() {
+    const methods = useForm({});
+
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
+
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (data) => {
+        try {
+            setCargando(true);
+
+        } catch (error) {
+            console.error(error);
+            setCargando(false);
+        }
+    };
+
+    const columnsReporte = [
+        {
+            field: 'ejecutivo',
+            headerName: 'Ejecutivo',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operaciones2025',
+            headerName: 'Operaciones 2025',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firma2025',
+            headerName: 'firma2025',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operaciones2024',
+            headerName: 'Operaciones 2024',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firma2024',
+            headerName: 'Firma 2024',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operaciones2023',
+            headerName: 'Operaciones 2023',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firma2023',
+            headerName: 'Firma 2023',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operaciones2022',
+            headerName: 'Operaciones 2022',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firma2022',
+            headerName: 'Firma 2022',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operaciones2021',
+            headerName: 'Operaciones 2021',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firma2021',
+            headerName: 'Firma 2021',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'operacionesTotal',
+            headerName: 'Operaciones Total',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'firmaTotal',
+            headerName: 'Firma Total',
+            flex: 1,
+            editable: false,
+        },
+
+    ];
+
+    const [anioDefault, setanioDefault] = useState("");
+    const [mesDefault, setmesDefault] = useState("");
+    const [brokerDefault, setBrokerDefault] = useState("")
+    const [ejecutivoDefault, setEjecutivoDefault] = useState("")
+    const [estadoDefault, setEstadoDefault] = useState("")
+
+    const [anioFiltro, setanioFiltro] = useState("");
+    const [mesFiltro, setmesFiltro] = useState("");
+    const [brokerFiltro, setBrokerFiltro] = useState("")
+    const [ejecutivoFiltro, setEjecutivoFiltro] = useState("")
+    const [estadoFiltro, setEstadoFiltro] = useState("")
+
+    const [parametroGenerico, setparametroGenerico] = useState(`#${anioDefault}#${mesDefault}#${brokerDefault}#${ejecutivoDefault}#${estadoDefault}`);
+
+
+    useEffect(() => {
+        const hoy = new Date();
+        setanioDefault(hoy.getFullYear());
+        setmesDefault(hoy.getMonth());
+    }, [setanioDefault, setmesDefault])
+
+    useEffect(() => {
+        console.log('el parametro generico', parametroGenerico);
+    }, [parametroGenerico])
+
+
+    const chageAnio = (param) => {
+        setanioFiltro(param)
+        setparametroGenerico(`#${param}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const chageMes = (param) => {
+        setmesFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${param}#${brokerFiltro}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeBroker = (param) => {
+        setBrokerFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${param}#${ejecutivoFiltro}#${estadoFiltro}`)
+    }
+    const changeEjecutivo = (param) => {
+        setEjecutivoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${param}#${estadoFiltro}`)
+    }
+    const changeEstado = (param) => {
+        setEstadoFiltro(param)
+        setparametroGenerico(`#${anioFiltro}#${mesFiltro}#${brokerFiltro}#${ejecutivoFiltro}#${param}`)
+    }
+
+    return (
+        <>
+
+
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={12}>
+                        <Card sx={{ p: 4 }}>
+                            <Box
+                                rowGap={4}
+                                columnGap={4}
+                                display="grid"
+                                gridTemplateColumns={{
+                                    xs: 'repeat(1, 1fr)',
+                                    sm: 'repeat(5, 1fr)',
+                                }}
+                            >
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="periodos"
+                                    label="Año"
+                                    placeholder="Periodo"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageAnio}
+                                    valorFiltro="Año"
+                                    valorDefault={anioDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="mes"
+                                    label="Mes"
+                                    placeholder="Mes"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={chageMes}
+                                    valorFiltro="Mes"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="broker"
+                                    label="Broker"
+                                    placeholder="Broker"
+                                    endPointURL={END_POINT_REPORTES_BROKERS}
+                                    onChangeFunc={changeBroker}
+                                    valorFiltro="Broker"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="ejecutivo"
+                                    label="Ejecutivo"
+                                    placeholder="Ejecutivo"
+                                    endPointURL={END_POINT_EMPLEADOS_BROKERS}
+                                    onChangeFunc={changeEjecutivo}
+                                    valorFiltro="0"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+                                <GenericCombo
+                                    // disabled={disabled}
+                                    nameAUX="estado"
+                                    label="Estado"
+                                    placeholder="Estado"
+                                    endPointURL={END_POINT_REPORTES_CATALOGOS}
+                                    onChangeFunc={changeEstado}
+                                    valorFiltro="Estado"
+                                    valorDefault={mesDefault}
+                                    useChange
+                                />
+
+                            </Box>
+
+                        </Card>
+                    </Grid>
+                </Grid>
+            </FormProvider>
+
+
+            <GenericDataGridCustom EndPoint={END_POINT_REPORTES_COLOCACION_EJECUTIVO} genericParamAUX={parametroGenerico} columns={columnsReporte} />
+
+        </>
+    );
+} 
+
+
 
 
 function RenderPeriodo(periodo) {
@@ -705,26 +2020,6 @@ function RenderPeriodo(periodo) {
                 sx={{ mx: 'auto' }}
             >
                 {periodo}
-            </Label>
-        </div>
-    );
-}
-function RenderStatus(param1, param2) {
-
-    console.log(param1)
-    console.log(param2)
-
-    const theme = useTheme();
-    const isLight = theme.palette.mode === 'light';
-
-    return (
-        <div>
-            <Label
-                variant={isLight ? 'soft' : 'filled'}
-                color='success'
-                sx={{ mx: 'auto' }}
-            >
-                solo esto
             </Label>
         </div>
     );

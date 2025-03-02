@@ -12,7 +12,7 @@ const LogoBlanco = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const logo = (
     <Box
       component="img"
-      src="/logo/imaConectaLogo.png"
+          src="/logo/LogoMultiCredit.png"
       sx={{ width: 60, height: 60, ...sx }}
     />
   );

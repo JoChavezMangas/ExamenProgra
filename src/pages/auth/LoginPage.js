@@ -9,7 +9,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> Sistema de reportes</title>
+        <title> MultiCredit</title>
       </Helmet>
 
       <Login />

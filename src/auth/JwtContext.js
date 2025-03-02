@@ -18,7 +18,7 @@ import localStorageAvailable from '../utils/localStorageAvailable';
 //
 import { isValidToken, setSession, ValidarRenovacion } from './utils';
 import navConfig from '../layouts/dashboard/nav/config-navigation';
-import { END_POINT_LOGOUT_MULTILOGIN, END_POINT_RENOVAR_TOKEN, HOST_API_KEY } from '../config-global';
+import { LOGE_OUT, END_POINT_RENOVAR_TOKEN, HOST_API_KEY } from '../config-global';
 
 
 // ----------------------------------------------------------------------
@@ -111,9 +111,12 @@ export function AuthProvider({ children }) {
     const initialize = useCallback(async () => {
         try {
 
+
+
             const accessToken = storageAvailable ? localStorage.getItem('accessToken') : '';
             const accessTime = storageAvailable ? localStorage.getItem('expiracionToken') : 0;
             const horaRecarga = new Date().valueOf();
+
 
             if (accessToken) {
 
@@ -131,13 +134,7 @@ export function AuthProvider({ children }) {
                     },
                 });
 
-                // console.log('el state 1',state)
-
-
             } else {
-
-
-                // console.log("dentro del else")
 
                 dispatch({
                   type: 'INITIAL',
@@ -235,7 +232,7 @@ export function AuthProvider({ children }) {
         localStorage.removeItem('horaAcceso');
         localStorage.removeItem('accessToken');
         delete axios.defaults.headers.common.Authorization;
-        const redirectUri = HOST_API_KEY + END_POINT_LOGOUT_MULTILOGIN;
+        const redirectUri = LOGE_OUT;
         window.location.href = redirectUri;
         
         // axios.get('/api/cuentas/LogeOut');

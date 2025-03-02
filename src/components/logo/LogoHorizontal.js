@@ -21,8 +21,8 @@ const LogoHorizontal = forwardRef(({ disabledLink = false, sx, ...other }, ref) 
   const logoHorizontal = (
     <Box
       component="img"
-      src="/logo/ConectaHorizontal.svg"
-      sx={{ width: 240, ...sx }}
+          src="/logo/LogoAzulMulticredit.svg"
+      sx={{ width: 180, ...sx }}
     />
   );
 

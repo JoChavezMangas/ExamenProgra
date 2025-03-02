@@ -35,24 +35,20 @@ import axios from '../utils/axios';
 // verifica si el token actual es valido y si no ha expirado
 export const isValidToken = (accessToken, HoraValidar, mostrarModal) => {
 
-    console.log("quiere validar token");
 
     // Verifica si el token no esta vacio
     if (!accessToken) {
-        console.log("flag1")
         return false;
     }
 
     const ultimaHoraRegistrada = localStorage.getItem('horaAcceso');
     // verifica que tengamos ultima hora de interaccion
     if (!ultimaHoraRegistrada) {
-        console.log("flag2")
         return false;
     }
    
     // verifica que no se haya pasado demasiado tiempo desde la ultima interaccion
     if ((HoraValidar - ultimaHoraRegistrada) > 1800000) {
-        console.log("flag3")
         return false;
     }
 

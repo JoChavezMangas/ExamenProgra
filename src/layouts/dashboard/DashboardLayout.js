@@ -40,7 +40,7 @@ export default function DashboardLayout() {
     return (
       <>
         <Header onOpenNav={handleOpen} />
-
+            
         {isDesktop ? <NavHorizontal /> : renderNavVertical}
 
         <Main>
@@ -57,7 +57,7 @@ export default function DashboardLayout() {
     return (
       <>
         <Header onOpenNav={handleOpen} />
-
+        
         <Box
           sx={{
             display: { lg: 'flex' },
