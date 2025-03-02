@@ -17,15 +17,13 @@ import { useAuthContext } from '../../auth/useAuthContext';
 // components
 import Iconify from '../../components/iconify';
 import FormProvider, { RHFTextField } from '../../components/hook-form';
-import { HOST_API_KEY, END_POINT_LOGIN ,END_POINT_LOGINRAPIDO, MOSTRAR_LOGIN, TESTIGO } from '../../config-global';
+import { HOST_API_KEY, END_POINT_LOGIN ,END_POINT_LOGINRAPIDO } from '../../config-global';
 import { useSnackbar } from '../../components/snackbar';
 // import { functions } from 'lodash';
 
 // ----------------------------------------------------------------------
 
 export default function AuthLoginForm() {
-
-    console.log(TESTIGO)
 
     const { login } = useAuthContext();
 
@@ -92,16 +90,11 @@ export default function AuthLoginForm() {
     login(data.email, data.password);
   }
 
-  const mostrarLogin = MOSTRAR_LOGIN === "MOSTRAR";
-
+  
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-          {mostrarLogin ? 
-
-
-              <>
-
+    
       <Stack spacing={5}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
@@ -147,9 +140,9 @@ export default function AuthLoginForm() {
       >
         Ingresar
       </LoadingButton>
-              </>
+              
 
-        :<></>}
+       
 
 
 

@@ -8,12 +8,6 @@ import { PATH_DASHBOARD } from './routes/paths';
  export const HOST_API_LOCAL = "https://localhost:7285/";
 
 
- export const MOSTRAR_LOGIN = "MOSTRAR";
-// export const MOSTRAR_LOGIN = "ESCONDER";
-
-export const TESTIGO = "20241004";
-
-
 export const END_POINT_LOGINRAPIDO = "api/cuentas/ResultadoRapidoLogin";
 export const END_POINT_LOGIN = "api/cuentas/Login";
 export const END_POINT_PEDIDOS_CATALOGOS = "api/pedidos/ObetenerCombo";
