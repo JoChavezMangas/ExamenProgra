@@ -70,6 +70,14 @@ export default function CrearPedido() {
             // Usar la fecha del día de hoy si data.FechaPedido es undefined
             const fechaEnviar = data.FechaPedido ? new Date(data.FechaPedido).toJSON() : fechaActual;
 
+            const monto = Number(data.Monto);
+
+            if (Number.isNaN(monto)) {
+                errorfunc("el monto no debe de contener carácteres especiales ni letras");
+                return "";
+
+            }
+
             const form = new FormData();
 
 
@@ -85,11 +93,14 @@ export default function CrearPedido() {
             if (ValidacionPass)
                 AxiosMandarForm(form, END_POINT_PEDIDOS_REGISTRAR, succesfunc, errorfunc);
             else
-                errorfunc("¡Por favor completa el formulario!");
+                errorfunc("Por favor completa el formulario");
+
+           
 
         } catch (error) {
             console.error(error);
         }
+        return "";
     };
 
 
@@ -108,7 +119,6 @@ export default function CrearPedido() {
             permisoSubmit = false
         if (!document.getElementById('FechaPedido').value)
             permisoSubmit = false
-
 
         return permisoSubmit;
     }
